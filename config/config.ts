@@ -9,7 +9,10 @@ export const devServer: DevServer = {
   host: "localhost",
   port: 8080,
   hot: false,
-  filename: "main.js"
+  filename: "main.js",
+  proxy: {
+    "/api": "http://localhost:3000"
+  }
 };
 export const TSLoaderRules: RuleSetRule = {
   test: /\.ts?$/,
