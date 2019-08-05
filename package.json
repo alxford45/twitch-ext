@@ -1,21 +1,23 @@
 {
-  "name": "ts-env",
-  "version": "1.0.0",
-  "description": "flexible starting typescript env",
+  "name": "twitch-ext",
+  "version": "0.0.1",
+  "description": "Prototype for twitch extension to overlay Runelite loot tracker",
   "scripts": {
     "dev": "webpack-dev-server --config config/webpack.config.ts"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alxford45/ts-env.git"
+    "url": "git+https://github.com/alxford45/twitch-ext"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "prototype, Runelite, twitch, extension, loot, tracker"
+  ],
+  "author": "Alex Ford",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/alxford45/ts-env/issues"
+    "url": "https://github.com/alxford45/twitch-ext/issues"
   },
-  "homepage": "https://github.com/alxford45/ts-env#readme",
+  "homepage": "https://github.com/alxford45/twitch-ext#readme",
   "devDependencies": {
     "@types/html-webpack-plugin": "^3.2.0",
     "@types/node": "^12.6.2",
