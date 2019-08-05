@@ -11,7 +11,7 @@ export const devServer: DevServer = {
   hot: false,
   filename: "main.js",
   proxy: {
-    "/api": "http://localhost:3000"
+    "**": "http://localhost:3000"
   }
 };
 export const TSLoaderRules: RuleSetRule = {
