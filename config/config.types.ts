@@ -7,7 +7,11 @@ import {
   RuleSetCondition,
   RuleSetUse
 } from "webpack";
-import { Configuration as IDevConfig } from "webpack-dev-server";
+import {
+  Configuration as IDevConfig,
+  ProxyConfigMap,
+  ProxyConfigArray
+} from "webpack-dev-server";
 import { Tapable } from "tapable";
 
 export type Output = IOutput & {
@@ -19,6 +23,8 @@ export type DevServer = IDevConfig & {
   host: string;
   hot: boolean;
   port: number;
+  filename: string;
+  proxy?: ProxyConfigMap | ProxyConfigArray;
 };
 export type Resolve = IResolve & {
   extensions: string[];
