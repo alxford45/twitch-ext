@@ -3,7 +3,7 @@ import { DevServer, RuleSetRule, Mode } from "./config.types";
 
 export const MODE: Mode = "development";
 export const NAME: string = "web";
-export const ENTRY: string = "./src/index.ts";
+export const ENTRY: string = "./web/index.ts";
 
 export const devServer: DevServer = {
   host: "localhost",
@@ -20,5 +20,5 @@ export const TSLoaderRules: RuleSetRule = {
   }
 };
 export const htmlWebpackPlugin: HtmlWebpackPlugin = new HtmlWebpackPlugin({
-  template: "./src/index.html"
+  template: "./web/index.html"
 });
