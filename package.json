@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "Prototype for twitch extension to overlay Runelite loot tracker",
   "scripts": {
-    "web": "webpack-dev-server --config config/webpack.config.ts"
+    "start": "npm run server && npm run web",
+    "web": "webpack-dev-server --config config/webpack.config.ts",
+    "server": "nodemon --exec ts-node server/index.ts"
   },
   "repository": {
     "type": "git",
