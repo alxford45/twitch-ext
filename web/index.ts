@@ -1,6 +1,9 @@
 import axios, { AxiosResponse } from "axios";
-(async () => {
-  type Hello = { data: string };
-  const greeting: AxiosResponse<Hello> = await axios.get("api/hello");
-  console.log(greeting.data);
-})();
+const getRes = async () => {
+  const auth = await axios.get("api/auth");
+  console.log(auth);
+};
+const button = document.createElement("button");
+button.innerText = "click me";
+button.addEventListener("click", getRes);
+document.body.appendChild(button);
