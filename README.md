@@ -6,6 +6,12 @@ to be updated...
 
 to be updated...
 
+# Project Docs
+
+Project Documentation can be found <a href="https://alxford45.github.io/twitch-ext/">here</a>.
+<br><br>
+docs generated using <a href="https://typedoc.org/">TypeDoc</a>
+
 # usage
 
     git clone https://github.com/alxford45/twitch-ext.git
