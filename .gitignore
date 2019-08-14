@@ -3,3 +3,6 @@
 
 #tsc compile outdir
 /dist
+
+#project docs
+/docs
