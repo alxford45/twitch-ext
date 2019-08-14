@@ -5,6 +5,7 @@
   "scripts": {
     "start": "npm run server && npm run web",
     "web": "webpack-dev-server --config config/webpack.config.ts",
+    "server": "nodemon --exec ts-node server/index.ts",
     "docs": "typedoc ./server "
   },
   "repository": {
