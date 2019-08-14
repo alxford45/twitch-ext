@@ -3,5 +3,6 @@
   "out": "./docs",
   "name": "twitch-ext-server",
   "excludeNotExported": true,
-  "includeDeclarations": true
+  "includeDeclarations": true,
+  "readme": "none"
 }
