@@ -1,0 +1,7 @@
+{
+  "mode": "file",
+  "out": "./docs",
+  "name": "twitch-ext-server",
+  "excludeNotExported": true,
+  "includeDeclarations": true
+}
