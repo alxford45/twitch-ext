@@ -1,17 +1,15 @@
-import { AxiosRequestConfig } from "axios";
 import { map } from "rxjs/operators";
 
+import { runeliteAuthOptions } from "../data/constants";
 import { fetchData } from "../fetchData";
 import { GithubResponse } from "../types";
 
-const options: AxiosRequestConfig = {
-  url: "https://api.github.com/repos/runelite/runelite/tags",
-  method: "GET",
-  headers: {
-    "User-Agent": "alxford45"
-  }
-};
-export const version$ = fetchData<GithubResponse>(options)!.pipe(
+/**
+ * [[Observable]]<string> created from [[fetchData]] that is transformed into emitting
+ * the most recent version of Runelite as a string from the most recent Runelite Release on
+ * Github. This formatted version string is required for all future Runelite HTTP API requests.
+ */
+export const version$ = fetchData<GithubResponse>(runeliteAuthOptions)!.pipe(
   map(releases => releases[0]),
   map(latestRelease => latestRelease.name),
   map(name => name.split("-")),
