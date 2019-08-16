@@ -4,15 +4,16 @@ import { meta } from "./modules/meta";
 import { createWebSocket } from "./modules/createWebSocket";
 import { fetchData } from "./fetchData";
 import { AxiosRequestConfig } from "axios";
+import { PORT, SOCKETURL } from "./data/constants";
 const app = express();
-const PORT = 3000;
-const socketUrl = "wss://api.runelite.net/ws";
+const port = PORT;
+const socketUrl = SOCKETURL;
 
 app.get("/api/auth", (_, res) => {
   res.send("testing");
 });
-app.listen(PORT, () => {
-  console.log(`now listening on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`now listening on port ${port}`);
   const request = meta.pipe(
     concatMap(args => {
       const { uid, version } = args;
