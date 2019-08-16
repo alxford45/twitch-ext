@@ -1,7 +1,6 @@
 import axios, { AxiosResponse, AxiosError, AxiosRequestConfig } from "axios";
 import { from, Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { FetchData } from "./types";
 /**
  * Fetches data from options using [[AxiosInstance.request]] and returns an [[Observable]] of type T
  * from the resulting AxiosRequest Promise or undefined if the response throws an error.
@@ -12,7 +11,7 @@ import { FetchData } from "./types";
  * @typeparam T   Specified type of expected response schema
  * @returns   Observable<T> | undefined on Error
  */
-export const fetchData: FetchData = <T>(options: AxiosRequestConfig) => {
+export const fetchData = <T>(options: AxiosRequestConfig) => {
   try {
     /**
      * repsonse references the HTTP Request made from axios given options as a Promise<AxiosResponse>.
