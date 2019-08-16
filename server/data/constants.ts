@@ -7,5 +7,5 @@ export const runeliteAuthOptions: AxiosRequestConfig = {
     "User-Agent": "alxford45"
   }
 };
-export const PORT = 3000;
-export const SOCKETURL = "wss://api.runelite.net/ws";
+export const PORT: number = 3000;
+export const SOCKETURL: string = "wss://api.runelite.net/ws";
