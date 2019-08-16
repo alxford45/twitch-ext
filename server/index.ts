@@ -5,6 +5,7 @@ import { createWebSocket } from "./modules/createWebSocket";
 import { fetchData } from "./fetchData";
 import { AxiosRequestConfig } from "axios";
 import { PORT, SOCKETURL } from "./data/constants";
+
 const app = express();
 const port = PORT;
 const socketUrl = SOCKETURL;
