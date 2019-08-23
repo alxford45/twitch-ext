@@ -1,17 +1,60 @@
-import express from "express";
-import { concatMap, map, tap } from "rxjs/operators";
-import { meta } from "./modules/meta";
-import { createWebSocket } from "./modules/createWebSocket";
-import { fetchData } from "./fetchData";
 import { AxiosRequestConfig } from "axios";
-import { PORT, SOCKETURL } from "./data/constants";
+import express, { Request, Response, NextFunction } from "express";
+import { concatMap, map, tap, finalize } from "rxjs/operators";
+import { Runelite } from "types/api";
+import { PORT, SOCKETURL } from "./constants";
+import { fetchData } from "./fetchData";
+import { createWebSocket } from "./modules/createWebSocket";
+import { fetchConfig } from "./modules/fetchConfig";
+import { meta } from "./modules/meta";
 
 const app = express();
 const port = PORT;
 const socketUrl = SOCKETURL;
 
-app.get("/api/auth", (_, res) => {
-  res.send("testing");
+app.locals.authenticated = false;
+app.get("/api/auth", (req, res) => {
+  const session$ = meta.pipe(
+    tap(x => res.send(x.oauthUrl)),
+    map(args => args.uid),
+    concatMap(uid => {
+      app.locals.uid = uid;
+      const socket$ = createWebSocket(socketUrl, uid);
+      return socket$;
+    })
+  );
+  session$.subscribe({
+    next: val => {
+      console.log(val);
+    },
+    error: err => {
+      console.log(err);
+    },
+    complete: () => {
+      console.log("authenticated");
+      app.locals.authenticated = true;
+    }
+  });
+});
+
+app.get("/api/loot", (_, res) => {
+  const params: Runelite.Req.LootTracker = {};
+  const endpoint = "loottracker";
+  const loot$ = meta.pipe(
+    concatMap((args: any) => {
+      const { uid, version } = args;
+      const config = fetchConfig(params, uid, version, endpoint);
+      return fetchData<Runelite.Res.LootTracker>(config)!;
+    })
+  );
+  loot$.subscribe({
+    next: val => {
+      console.log(val);
+      res.send(val);
+    },
+    error: error => console.log(error),
+    complete: () => console.log("done!")
+  });
 });
 app.listen(port, () => {
   console.log(`now listening on port ${port}`);
@@ -29,31 +72,4 @@ app.listen(port, () => {
       return response;
     })
   );
-  const session$ = meta.pipe(
-    tap(x => {
-      console.log(x.oauthUrl);
-    }),
-    map(args => args.uid),
-    concatMap(uid => {
-      const socket$ = createWebSocket(socketUrl, uid);
-      return socket$;
-    })
-  );
-  session$.subscribe({
-    next: val => console.log(val),
-    error: err => console.log(err),
-    complete: () => {
-      console.log("done");
-      request.subscribe(x => {
-        const data = x.map((y: any) => {
-          return {
-            target: `${y.type} ${y.eventId}`,
-            drops: y.drops.flatMap((z: any) => `id: ${z.id}, qty: ${z.qty}`),
-            time: y.time.seconds
-          };
-        });
-        console.log(data);
-      });
-    }
-  });
 });
