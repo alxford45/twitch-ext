@@ -1,9 +1,18 @@
 import axios, { AxiosResponse } from "axios";
-const getRes = async () => {
+const getAuth = async () => {
   const auth = await axios.get("api/auth");
-  console.log(auth);
+  const tab = window.open(auth.data, "_blank")!;
+  tab.focus();
 };
-const button = document.createElement("button");
-button.innerText = "click me";
-button.addEventListener("click", getRes);
-document.body.appendChild(button);
+const getDaLoot = async () => {
+  const response = await axios.get("api/loot");
+  console.log(response);
+};
+
+const authButton = document.getElementById("auth")!;
+authButton.innerText = "authenticate";
+authButton.addEventListener("click", getAuth);
+
+const lootButton = document.getElementById("loot")!;
+lootButton.innerText = "gimme da loot";
+lootButton.addEventListener("click", getDaLoot);
