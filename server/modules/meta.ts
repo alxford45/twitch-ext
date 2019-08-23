@@ -1,4 +1,4 @@
-import { combineLatest, ReplaySubject } from "rxjs";
+import { combineLatest, AsyncSubject } from "rxjs";
 import { map } from "rxjs/operators";
 
 import { auth$ } from "./auth";
@@ -22,11 +22,11 @@ const source$ = combineLatest(version$, auth$).pipe(
  * access to the latest emitted value. By wrapping the source observable in a replay subject, all future subscriptions
  * will NOT recalculate the uid value. This is necessary because only uid value authenticated will be valid.
  */
-export const meta = new ReplaySubject<{
+export const meta = new AsyncSubject<{
   version: string;
   oauthUrl: string;
   uid: string;
-}>(1);
+}>();
 /**
  * source$ is immediately subscribed to meta so that all future subscriptions of meta are initialized
  * with the source$ subscription.
