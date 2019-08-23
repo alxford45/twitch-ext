@@ -1,6 +1,6 @@
 import { Observable, Observer } from "rxjs";
-import WebSocket, { MessageEvent, CloseEvent, ErrorEvent } from "ws";
-import { WebSocketEvent } from "../types";
+import WebSocket from "ws";
+import { WebSocketEvent, MessageEvent } from "types/events";
 /**
  * Creates a ws [[WebSocket]] from a given webscocket url and uuid and returns the websocket
  * as an [[Observable]] of type [[WebSocketEvent]].
@@ -20,7 +20,7 @@ export const createWebSocket = (socketURL: string, uid: string) => {
    * observable constructor
    */
   const obs$: Observable<WebSocketEvent> = Observable.create(
-    (observer: Observer<WebSocketEvent>) => {
+    (observer: Observer<any>) => {
       /**
        * Couples ws event listener for event "open" with observer.next(ws) giving the observer access
        * to the initial websocket state. TODO: implement logging without passing entire websocket.
@@ -33,7 +33,7 @@ export const createWebSocket = (socketURL: string, uid: string) => {
             session: uid
           })
         );
-        observer.next({ target: ws });
+        observer.next(ws.readyState);
       });
       /**
        * Couples ws event listener for event "message" with observer.next(event) for each recieved
@@ -43,16 +43,17 @@ export const createWebSocket = (socketURL: string, uid: string) => {
        */
       ws.on("message", (payload: string) => {
         const event: MessageEvent = JSON.parse(payload);
-        event.type === "LoginResponse" ? ws.close(1000) : null;
+        event.type === "LoginResponse"
+          ? ws.close(1000, "user successfully authenticated")
+          : null;
         observer.next(event);
       });
       /**
        * Couples ws event listener for event "close" with observer.complete() on sucessful closing code
        * or observer.error(event) on any other closing code.
        */
-      ws.on("close", (payload: string) => {
-        const event: CloseEvent = JSON.parse(payload);
-        event.code === 1000 ? observer.complete() : observer.error(event);
+      ws.on("close", (code: number) => {
+        code === 1000 ? observer.complete() : null;
       });
       /**
        * Couples ws event listener for event "error" with observer.error(event). Error handeling is then left
