@@ -1,4 +1,5 @@
 import { AxiosRequestConfig } from "axios";
+import { Runelite } from "types/api";
 
 export const runeliteAuthOptions: AxiosRequestConfig = {
   url: "https://api.github.com/repos/runelite/runelite/tags",
