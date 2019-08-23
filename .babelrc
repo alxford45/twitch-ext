@@ -1,0 +1,15 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "corejs": "3",
+        "useBuiltIns": "usage",
+        "exclude": ["@babel/plugin-transform-regenerator"]
+      }
+    ]
+  ],
+  //faster 'async await' polyfills than plugin-transform-regenerator
+  //at the cost of not supporting 'async generator functions'
+  "plugins": ["module:fast-async"]
+}
