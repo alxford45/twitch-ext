@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import { concatMap } from "rxjs/operators";
 import uuid from "uuid/v4";
 
-import { fetchData } from "../fetchData";
+import { fetchData } from "./fetchData";
 import { version$ } from "./version";
 import { Runelite } from "types/api";
 /**

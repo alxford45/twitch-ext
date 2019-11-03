@@ -1,7 +1,7 @@
 import { map } from "rxjs/operators";
 
-import { runeliteAuthOptions } from "../constants";
-import { fetchData } from "../fetchData";
+import { runeliteAuthOptions } from "./constants";
+import { fetchData } from "./fetchData";
 import { Github } from "types/api";
 
 /**
